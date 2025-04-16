@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -158,6 +158,478 @@
         let hh = d.getHours();
         let mm = d.getMinutes();
         let ss = d.getSeconds();
+
+        if (hh > 12) {
+            document.getElementsByClassName("day-col")[0].innerHTML = "PM";
+            hh = hh - 12;
+        } else {
+            document.getElementsByClassName("day-col")[0].innerHTML = "AM";
+        }
+
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+
+        document.getElementsByClassName("hh")[0].innerHTML = hh;
+        document.getElementsByClassName("mm")[0].innerHTML = mm;
+        document.getElementsByClassName("ss")[0].innerHTML = ss;
+    }
+    clock();
+
+    let a = new Date().getFullYear();
+    console.log(a);
+</script>
+</html>
+ -->
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+            position: relative; /* For absolute positioning of the scroll hint */
+            overflow: hidden; /* Hide scroll hint initially */
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Place the video behind other content */
+        }
+
+        .video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+        }
+
+        .scroll {
+            position: absolute;
+            top: 80%; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            color: aqua;
+            font-size: 5vh;
+            text-align: center;
+            animation: pulse 2s infinite;
+            opacity: 1; /* Initially visible */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .scroll h1 {
+            margin: 0;
+        }
+
+        .digital-clock {
+            color: aliceblue;
+            font-size: 8vh;
+            animation: pulse 2s infinite;
+            animation-delay: 1s;
+            margin-top: 10vh; /* Adjust spacing */
+            text-align: center;
+        }
+
+        .digital-clock h1 {
+            margin: 0;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .digital-clock h1:hover {
+            color: aqua;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%; /* Adjust container width */
+            max-width: 600px; /* Set a maximum width */
+            margin-top: 5vh; /* Adjust spacing */
+        }
+
+        .box {
+            flex: 1;
+            max-width: 15vh; /* Adjust box size */
+            background-color: aqua;
+            margin: 1vh;
+            padding-top: 2%;
+            border-radius: 20%;
+            text-align: center;
+            animation: pulse 2s infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1 / 1; /* Make it a square */
+        }
+
+        .text {
+            color: aliceblue;
+            font-size: 10vh; /* Adjust text size */
+            animation: pulse 2s infinite;
+            margin: 0;
+        }
+
+        p {
+            font-size: 6vh; /* Adjust time digit size */
+            margin: 0;
+        }
+
+        .noon {
+            background-color: black;
+        }
+
+        .day-col {
+            color: aliceblue;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .digital-clock {
+                font-size: 6vh;
+                margin-top: 15vh;
+            }a
+
+            .container {
+                width: 95%;
+                margin-top: 3vh;
+            }
+
+            .box {
+                max-width: 12vh;
+                margin: 0.5vh;
+            }
+
+            .text {
+                font-size: 8vh;
+            }
+
+            p {
+                font-size: 4vh;
+            }
+
+            .scroll {
+                font-size: 4vh;
+                top: 75%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .digital-clock {
+                font-size: 5vh;
+                margin-top: 20vh;
+            }
+
+            .box {
+                max-width: 10vh;
+            }
+
+            .text {
+                font-size: 6vh;
+            }
+
+            p {
+                font-size: 3vh;
+            }
+
+            .scroll {
+                font-size: 3vh;
+                top: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video class="video" autoplay loop muted src="earth-animation.mp4"></video>
+    </div>
+
+    <div class="scroll animate__animated animate__fadeInDown animate__delay-1s">
+        <h1>Scroll Down To See The Time</h1>
+    </div>
+
+    <div class="digital-clock animate__animated animate__fadeIn animate__delay-2s">
+        <h1>DIGITAL CLOCK</h1>
+    </div>
+
+    <div class="container animate__animated animate__fadeInUp animate__delay-3s">
+        <div class="box time">
+            <p class="hh">hh</p>
+        </div>
+        <div class="text dots">:</div>
+        <div class="box">
+            <p class="mm">mm</p>
+        </div>
+        <div class="text dots">:</div>
+        <div class="box">
+            <p class="ss">ss</p>
+        </div>
+        <div class="noon box">
+            <p class="day-col">PM</p>
+        </div>
+    </div>
+
+    <script>
+        const scrollHint = document.querySelector('.scroll');
+        const digitalClock = document.querySelector('.digital-clock');
+        const clockContainer = document.querySelector('.container');
+
+        // Initially hide the clock and container
+        digitalClock.style.opacity = 0;
+        clockContainer.style.opacity = 0;
+
+        function revealElements() {
+            scrollHint.style.opacity = 0;
+            digitalClock.style.opacity = 1;
+            clockContainer.style.opacity = 1;
+            // Optionally remove the scroll hint from the DOM after it fades out
+            setTimeout(() => {
+                scrollHint.style.display = 'none';
+            }, 500); // Adjust timing to match fade-out
+        }
+
+        // Event listener to reveal elements on scroll
+        window.addEventListener('scroll', revealElements, { once: true });
+
+        setInterval(clock, 1000);
+
+        function clock() {
+            let d = new Date();
+            let hh = d.getHours();
+            let mm = d.getMinutes();
+            let ss = d.getSeconds();
+            let ampm = "AM";
+
+            if (hh > 12) {
+                ampm = "PM";
+                hh = hh - 12;
+            } else if (hh === 0) {
+                hh = 12; // Midnight
+            }
+
+            hh = (hh < 10) ? "0" + hh : hh;
+            mm = (mm < 10) ? "0" + mm : mm;
+            ss = (ss < 10) ? "0" + ss : ss;
+
+            document.querySelector(".hh").textContent = hh;
+            document.querySelector(".mm").textContent = mm;
+            document.querySelector(".ss").textContent = ss;
+            document.querySelector(".day-col").textContent = ampm;
+        }
+        clock();
+
+        let a = new Date().getFullYear();
+        console.log(a);
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 20%;
+        }
+
+        .box {
+            flex: 1;
+            max-width: 20vh;
+            background-color: aqua;
+            margin: 1vh;
+            padding-top: 2%;
+            border-radius:20%;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .text {
+            color: aliceblue;
+            font-size: 20vh;
+            animation: pulse 2s infinite;
+
+        }
+       
+        p {
+            font-size: 12vh;
+            margin: 0;
+        }
+
+        .noon {
+            background-color: black;
+            animation: pulse 2s infinite;
+        }
+
+        .day-col {
+            color: aliceblue;
+        }
+
+        .digital-clock {
+            color: aliceblue;
+            font-size: 10vh;
+            animation: pulse 2s infinite;
+            animation-delay: 1s;
+        }
+
+        .video {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .scroll {
+            position: absolute;
+            color: aqua;
+            font-size: 5vh;
+            margin-top: 20%;
+            animation: pulse 2s infinite;
+        }
+
+        .digital-clock h1:hover
+       {
+            color: aqua;
+        }
+        .scroll h1:hover {
+            color: aliceblue;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .box {
+                max-width: 10vh;
+            }
+
+            .text {
+                margin-bottom: 4%;
+                font-size: 6vh;
+            }
+
+            p {
+               
+                font-size: 6vh;
+            }
+            .video {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            transform: scale(2);
+            margin-left: 20vw;
+        }
+
+            .digital-clock {
+                  margin-top: 20%;
+                font-size: 5vh;
+                margin-left: 2.5vh;
+                
+            }
+            
+
+            .scroll {
+                margin-top: 30%;
+                font-size: 2vh;
+                 margin-left: 2vh;
+            }
+            h1{
+                margin-left: 20vw;
+            }
+            .container{
+                margin-left: 20vw;
+            }
+        }
+    </style>
+</head>
+<body>
+ 
+       <video class="video" autoplay loop muted src="earth-animation.mp4"></video>
+    <div class="scroll">
+        <h1> To Know The Time Scroll Down</h1>
+    </div>
+
+    <div class="digital-clock animate__pulse">
+        <h1>DIGITAL CLOCK</h1>
+    </div>
+    <div class="container">
+        <div class="box time">
+            <p class="hh e">hh</p>
+        </div>
+        <div class="text dots">:</div>
+        <div class="box">
+            <p class="mm e">mm</p>
+        </div>
+        <div class="text dots">:</div>
+        <div class="box">
+            <p class="ss e">ss</p>
+        </div>
+        <div class="noon box">
+            <p class="day-col">PM</p>
+        </div>
+          
+    </div>
+</body>
+<script>
+    setInterval(clock, 1000);
+
+    function clock() {
+        let d = new Date();
+        let hh = d.getHours();
+        let mm = d.getMinutes();
+        let ss = d.getSeconds();
+        console.log(hh,mm,ss);
 
         if (hh > 12) {
             document.getElementsByClassName("day-col")[0].innerHTML = "PM";
